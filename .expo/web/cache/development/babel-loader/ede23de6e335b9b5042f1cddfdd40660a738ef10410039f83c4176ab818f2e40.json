@@ -1,0 +1,1 @@
+{"ast":null,"code":"export * from \"./en\";\nexport * from \"./vi\";","map":{"version":3,"names":[],"sources":["E:/Project/Mobile/react-native-expo-redux-template/src/Localization/languages/index.ts"],"sourcesContent":["export * from \"./en\";\r\nexport * from \"./vi\";\r\n"],"mappings":"AAAA;AACA"},"metadata":{},"sourceType":"module","externalDependencies":[]}
