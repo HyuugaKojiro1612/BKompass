@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeContainer } from "@/Screens/Home";
+import { QRScannerContainer } from "@/Screens/QR Scanner";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
@@ -30,6 +31,14 @@ export const MainNavigator = () => {
           tabBarLabel: "Lịch sử",
           tabBarIcon:({color,size}) =>(<MaterialCommunityIcons name="history" color={color} size={size} />),
 
+        }}
+      />
+      <Tab.Screen
+        name="Scan QR"
+        component={QRScannerContainer}
+        options={{
+          tabBarLabel: "Scan QR",
+          tabBarIcon:({color,size}) =>(<MaterialCommunityIcons name="qrcode" color={color} size={size} />),
         }}
       />
       <Tab.Screen
