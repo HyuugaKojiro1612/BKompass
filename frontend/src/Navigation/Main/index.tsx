@@ -2,7 +2,8 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeContainer } from "@/Screens/Home";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import {Profile} from '@/Screens/Profile';
+import { View } from "react-native";
 const Tab = createBottomTabNavigator();
 
 // @refresh reset
@@ -12,7 +13,8 @@ export const MainNavigator = () => {
     initialRouteName="home"
     screenOptions={{
       tabBarActiveTintColor:"#009060",
-      tabBarLabelPosition: "below-icon"
+      tabBarLabelPosition: "below-icon",
+      headerShown: false,
     }}
     >
       <Tab.Screen
@@ -33,6 +35,31 @@ export const MainNavigator = () => {
         }}
       />
       <Tab.Screen
+        name="Scan QR"
+        component={HomeContainer}
+        options={{
+          tabBarIcon: ({color, size }) => {
+            return (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: '#009060',
+                  height: 60,
+                  width: 60,
+                  top:-20,
+                  borderRadius:30,
+                  borderWidth: 2,
+                  borderColor: 'white',
+                }}
+              >
+                <MaterialCommunityIcons name="qrcode" size={size} color={'white'} />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
         name="Thêm địa điểm"
         component={HomeContainer}
         options={{
@@ -42,7 +69,7 @@ export const MainNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeContainer}
+        component={Profile}
         options={{
           tabBarLabel: "Hồ sơ",
           tabBarIcon:({color,size}) =>(<MaterialCommunityIcons name="account-outline" color={color} size={size} />),
