@@ -120,6 +120,11 @@ export const LocationInfo = () => {
     ,
     intro: "<b>Nhân rất đẹp a </b> <br><br> TOÀ NHÀ H6 ĐẠI HỌC BÁCH KHOA CS2<br>- Tòa nhà H6 được thiết kế khéo léo. Việc thiết kế kiến trúc đặt giếng trời ở khoảng giữa tòa nhà chính là giúp kích hoạt luồng khí,  chiếu sáng toàn bộ dãy hành lang.<br>H6 được trang bị 2 phòng máy tính Apple hiện đại bậc nhất làng đại học quốc gia, hơn nữa hệ thống Wifi free-S cực mạnh nhằm đáp ứng nhu cầu của sinh viên.<br>- Trước H6 là nhiều cây xanh mang lại cảm giác tươi mát. Vật liệu sử dụng nhiều kính kết hợp với màu xanh Bách Khoa mang lại cảm giác trẻ trung, năng động.<br>- H6 tập trung nhiều sinh viên khoa Khoa học và kỹ thuật máy tính."
   };
+  const user = {
+    username: "nhandeptrai",
+    displayName: "Nhan nguyen",
+    avtUrl: "https://lh3.googleusercontent.com/a/ACg8ocIjS4yddVpw1xqILBWSD3KYq8KzuZqUdn5jpZeMui6jiQ=s96-c"
+  }
 
   const [isFavorite, setIsFavorite] = React.useState(false);
   const toggleFavorite = () => {
@@ -134,7 +139,7 @@ export const LocationInfo = () => {
   };
   const renderScene = SceneMap({
     overview: () => <Overview basicInfo={basicInfo}/>,
-    review: () => <Review voteAndComment={basicInfo.voteAndComment}/>,
+    review: () => <Review voteAndComment={basicInfo.voteAndComment} user={user}/>,
     photos: () => <Photos images={basicInfo.images}/>,
     intro: () => <Introduction intro={basicInfo.intro} />, // Assuming intro is a string
   });
@@ -279,7 +284,7 @@ export const LocationInfo = () => {
         </ScrollView>
         </View>
         <View
-          style={{ flex: 1, marginTop: StatusBar.currentHeight, marginLeft: 30, marginRight: 30 }}
+          style={{ flex: 1, marginTop: StatusBar.currentHeight}}
         >
           <TabView
             navigationState={{
@@ -369,6 +374,7 @@ const styles = StyleSheet.create({
     maxHeight: 210,
     marginTop: 20,
     marginLeft: 30,
+    marginBottom: 5,
     paddingRight: 5, // Adjust the spacing between images
   },
 });

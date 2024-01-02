@@ -1,7 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import StarRating from "react-native-star-rating"; // Import your preferred Star Rating component
-
+import Icon from "react-native-vector-icons/AntDesign";
 //@ts-ignore
 const PercentageBar = ({ percentage }) => {
   return (
@@ -22,6 +31,11 @@ type ReviewProps = {
       avtUrl: string;
     };
   }[];
+  user: {
+    username: string;
+    displayName: string;
+    avtUrl: string;
+  };
 };
 
 const CustomStarRating = ({ vote }: { vote: number }) => {
@@ -40,8 +54,10 @@ const CustomStarRating = ({ vote }: { vote: number }) => {
 
 const RatingStatistics = ({
   voteAndComment,
+  user,
 }: {
   voteAndComment: ReviewProps["voteAndComment"];
+  user: ReviewProps["user"];
 }) => {
   const calculateStatistics = () => {
     const statistics: { [key: number]: number } = {};
@@ -87,6 +103,20 @@ const RatingStatistics = ({
     });
   };
 
+  const [isModalVisible, setModalVisible] = React.useState(false);
+  const [userRating, setUserRating] = React.useState(0);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const handleRating = (rating: number) => {
+    setUserRating(rating);
+    if (!isModalVisible) toggleModal();
+  };
+
+  const addImageHandler = () => {};
+
   return (
     <View style={styles.container}>
       <View style={styles.statisticsContainer}>
@@ -118,6 +148,24 @@ const RatingStatistics = ({
               <View></View>
             </View>
           ))}
+        </View>
+      </View>
+      <View style={styles.divider}></View>
+      <View style={styles.submitVoteContainer}>
+        <View>
+          <Text style={styles.votesText}>Rate & review</Text>
+        </View>
+        <View style={styles.votes}>
+          <Image source={{ uri: user.avtUrl }} style={styles.avatar} />
+          <StarRating
+            disabled={false}
+            maxStars={5}
+            rating={userRating}
+            starSize={30}
+            fullStarColor={"gold"}
+            starStyle={{ margin: 8 }}
+            selectedStar={handleRating}
+          />
         </View>
       </View>
       <View style={styles.divider}></View>
@@ -200,6 +248,69 @@ const RatingStatistics = ({
           })}
         </ScrollView>
       </View>
+      <Modal visible={isModalVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalHeaderContainer}>
+            <TouchableOpacity
+              style={styles.modalHeaderClosed}
+              onPress={() => toggleModal()}
+            >
+              <Icon name="close" size={24} />
+            </TouchableOpacity>
+            <Text style={styles.modalHeaderText}>Rate & Review</Text>
+            <View style={{ height: 40, width: 40 }}></View>
+          </View>
+          <View style={{justifyContent: "space-around", alignItems: "center", marginVertical: 20}}>
+            <StarRating
+              disabled={false}
+              maxStars={5}
+              rating={userRating}
+              selectedStar={(rating) => handleRating(rating)}
+              starSize={30}
+              fullStarColor={"gold"}
+              starStyle={{ margin: 8 }}
+            />
+          </View>
+          <View style={styles.commentContainer}>
+            <View style={styles.avtContainer}>
+              <Image source={{ uri: user.avtUrl }} style={styles.avatar} />
+            </View>
+            <View style={styles.voteContainer}>
+              <Text style={styles.displayNameText}>{user.displayName}</Text>
+              <View style={styles.voteAndTimeContainer}>
+                <Text>@{user.username}</Text>
+              </View>
+            </View>
+          </View>
+          <View>
+            <TextInput style={styles.textInput} 
+                      placeholder="Share details of your own experience at this place"
+                      autoFocus={true}
+                      multiline= {true}
+                      scrollEnabled={true}
+                      numberOfLines={2}
+            ></TextInput>
+          </View>
+          {/* Add TextInput for comment */}
+          <View style={{justifyContent: "center", alignItems:"center"}}>
+            <TouchableOpacity style={styles.addImageContainer}
+              onPress={addImageHandler}>
+              <Icon name='camera' style={styles.addImageButton} size={24} color={"#009060"} />
+              <Text style={styles.addImageButtonText}>Add Image</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            style={styles.postButton}
+            onPress={() => {
+              // Handle the post action here
+              // You may want to send the rating, comment, and photos to your server
+              toggleModal();
+            }}
+          >
+            <Text style={styles.postButtonText}>Post</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -207,7 +318,6 @@ const RatingStatistics = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: "flex-start",
-    width: "100%",
     //backgroundColor: "red",
   },
   progressBar: {
@@ -220,6 +330,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 5,
     marginTop: 20,
+    marginHorizontal: 30,
   },
   averageContainer: {
     alignItems: "center",
@@ -260,7 +371,8 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: "#ccc", // Border color
-    marginVertical: 5, // Adjust the vertical margin as needed
+    width: "100%",
+    margin: 0,
   },
   avatar: {
     width: 40,
@@ -292,7 +404,8 @@ const styles = StyleSheet.create({
   scrollView: {
     height: "auto",
     //backgroundColor: "yellow",
-    maxHeight: 350,
+    maxHeight: 210,
+    marginHorizontal: 30,
   },
   commentWapper: {
     flexGrow: 1,
@@ -312,14 +425,117 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     backgroundColor: "#ced4da",
     borderRadius: 5,
+    padding: 5,
+  },
+  submitVoteContainer: {
+    marginTop: 10,
+    marginBottom: 10,
+    alignContent: "center",
+    alignItems: "flex-start",
+    marginLeft: 30,
+  },
+  votesText: {
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  votes: {
+    marginTop: 10,
+    display: "flex",
+    flexDirection: "row",
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+  },
+  modalHeaderContainer: {
+    marginTop: 70,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+  },
+  modalHeaderClosed: {
+    height: 40,
+    width: 40,
+  },
+  modalHeaderText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  modalContent: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  postButton: {
+    backgroundColor: "green",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  postButtonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  closeButton: {
+    backgroundColor: "red",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  closeButtonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  addImageContainer: {
+    marginTop: 30,
+    marginBottom: 30,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 50,
+    width: "auto",
+    maxWidth: 150,
+    backgroundColor: "#CCD1CE",
+    borderRadius: 25,
     padding: 5
+  },
+  buttonContainer: {
+    marginTop: 20,
+    marginRight: 30,
+    alignItems: "flex-end"
+  },
+  addImageButton: {
+    marginLeft: 15,
+    marginRight: 10,
+  },
+  addImageButtonText: {
+    marginRight: 15,
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#009060"
+  },
+  textInput: {
+    minHeight: 100,
+    borderWidth: 2,
+    borderColor: "#e0e1dd",
+    marginVertical: 20,
+    marginHorizontal: 20,
+    borderRadius: 15,
+    fontSize: 16,
+    padding: 10,
+    textAlignVertical: "top",  // This is important for Android to start the text from the top
   },
 });
 
-const Review: React.FC<ReviewProps> = ({ voteAndComment }) => {
+const Review: React.FC<ReviewProps> = ({ voteAndComment, user }) => {
   return (
     <View>
-      <RatingStatistics voteAndComment={voteAndComment} />
+      <RatingStatistics voteAndComment={voteAndComment} user={user} />
     </View>
   );
 };

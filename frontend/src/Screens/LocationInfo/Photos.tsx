@@ -10,7 +10,7 @@ type PhotosProps = {
 const Photos: React.FC<PhotosProps> = ({ images }) => {
   const addImageHandler = () => {}
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.addImageContainer}
           onPress={addImageHandler}
@@ -56,6 +56,9 @@ const Photos: React.FC<PhotosProps> = ({ images }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 15
+  },
   imageContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',

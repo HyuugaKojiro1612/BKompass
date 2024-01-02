@@ -74,7 +74,8 @@ const Overview: React.FC<OverviewProps> = ({ basicInfo }) => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    marginHorizontal: 30,
+    marginVertical: 20
   },
   infoList: {
     display: "flex",
