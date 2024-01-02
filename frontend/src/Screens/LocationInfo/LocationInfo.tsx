@@ -128,10 +128,9 @@ export const LocationInfo = () => {
 
   const images = basicInfo.images
 
-  const windowDimensions = useWindowDimensions();
 
   const initialLayout = {
-    width: windowDimensions.width,
+    width: useWindowDimensions().width,
   };
   const renderScene = SceneMap({
     overview: () => <Overview basicInfo={basicInfo}/>,
@@ -158,9 +157,9 @@ export const LocationInfo = () => {
       title: "Introduction",
     },
   ]);
-  let temp = 32
+  
 
-  const w = Math.floor(initialLayout.width / temp);
+  const w = Math.floor(initialLayout.width / 32);
 
   const renderTabBar = (props: any) => {
     //@ts-ignore
@@ -186,7 +185,7 @@ export const LocationInfo = () => {
           if(i === 3){
             var tabW = w*12;
           }
-          else if(i==0){
+          else if(i == 0){
             var tabW = w*7;
           }
           else{
@@ -223,9 +222,21 @@ export const LocationInfo = () => {
     );
   };
 
+  const backToHomeHandler = () => {}
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Thông tin địa điểm</Text>
+      <View style={styles.titleContainer}>
+        <TouchableOpacity style={styles.leftContainer}
+            onPress={backToHomeHandler}
+        >
+          <Icon name='chevron-left' size={24} />
+        </TouchableOpacity>
+        <View>
+        <Text style={styles.title}>Thông tin địa điểm</Text>
+        </View>
+        <View style={{height:40, width: 40, marginRight: 30}}></View>
+      </View>
       <View style={styles.body}>
         <View style={styles.BasicInfoContainer}>
           <View>
@@ -291,11 +302,30 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  title: {
+  titleContainer: {
     marginTop: 70,
-    alignContent: "flex-end",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "flex-start",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  leftContainer:{
+    padding: 8,
+    borderColor: "#EDEDED",
+    borderRadius: 8,
+    borderWidth: 2,
+    height: 40,
+    width: 40,
+    paddingLeft: 13,
+    marginLeft: 30
+  },
+  title: {
     fontSize: 20,
     fontWeight: "bold",
+    width: "100%",
+    textAlign: "center",
   },
   body: {
   },
