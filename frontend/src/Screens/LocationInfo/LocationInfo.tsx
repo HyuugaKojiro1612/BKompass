@@ -374,6 +374,7 @@ const styles = StyleSheet.create({
     maxHeight: 210,
     marginTop: 20,
     marginLeft: 30,
+    marginRight: 30,
     marginBottom: 5,
     paddingRight: 5, // Adjust the spacing between images
   },
