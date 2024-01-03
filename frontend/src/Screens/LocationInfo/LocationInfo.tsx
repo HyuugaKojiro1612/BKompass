@@ -180,7 +180,7 @@ export const LocationInfo = ({route} : any) => {
   ]);
   
 
-  const w = Math.floor(initialLayout.width / 32);
+  const w = Math.floor(0.85 * useWindowDimensions().width / 32);
 
   const renderTabBar = (props: any) => {
     //@ts-ignore
@@ -203,18 +203,18 @@ export const LocationInfo = ({route} : any) => {
               ? "cyan.500"
               : useColorModeValue("coolGray.200", "gray.400");
 
-              if(i === 3){
-                var tabW = Math.round(w*11);
-              }
-              else if(i==0){
-                var tabW = Math.round(w*7.5);
-              }
-              else if(i==1){
-                var tabW = Math.round(w*6.5);
-              }
-              else{
-                var tabW = Math.round(w*6);
-              }
+            if(i === 3){
+              var tabW = Math.round(w*11);
+            }
+            else if(i==0){
+              var tabW = Math.round(w*7.5);
+            }
+            else if(i==1){
+              var tabW = Math.round(w*6.5);
+            }
+            else{
+              var tabW = Math.round(w*6);
+            }
           return (
             <Box
               borderBottomWidth="3"
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleContainer: {
-    marginTop: -10,
+    marginTop: -50,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

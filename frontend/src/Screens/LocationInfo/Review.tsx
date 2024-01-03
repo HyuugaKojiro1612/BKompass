@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
   scrollView: {
     height: "auto",
     //backgroundColor: "yellow",
-    maxHeight: 210,
+    maxHeight: 190,
     marginHorizontal: 30,
   },
   commentWapper: {

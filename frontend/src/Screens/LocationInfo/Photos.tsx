@@ -72,15 +72,15 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   image: {
-    height: 180,
-    width: 180,
+    height: 125,
+    width: 125,
     resizeMode: 'cover',
     borderRadius: 20,
     marginVertical: 5
   },
   odd: {
-    height: 370,
-    width: 300,
+    height: 260,
+    width: 250,
     resizeMode: 'cover',
     borderRadius: 20,
     marginVertical: 5
