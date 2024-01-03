@@ -4,6 +4,8 @@ import { HomeContainer } from "@/Screens/Home";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {Profile} from '@/Screens/Profile';
 import { View } from "react-native";
+import { LocationInfo } from '@/Screens/LocationInfo'
+import { QRScannerContainer } from "@/Screens/QR Scanner";
 const Tab = createBottomTabNavigator();
 
 // @refresh reset
@@ -36,7 +38,7 @@ export const MainNavigator = () => {
       />
       <Tab.Screen
         name="Scan QR"
-        component={HomeContainer}
+        component={QRScannerContainer}
         options={{
           tabBarIcon: ({color, size }) => {
             return (

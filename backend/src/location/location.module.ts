@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { LocationController } from './location.controller';
 import { LocationSchema } from 'entities/location.entity';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ReviewModule } from 'src/review/review.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MongooseModule } from '@nestjs/mongoose';
         schema: LocationSchema,
       },
     ]),
+    forwardRef(() => ReviewModule)
   ],
   controllers: [LocationController],
   providers: [LocationService],

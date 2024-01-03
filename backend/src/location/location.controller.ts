@@ -39,7 +39,7 @@ export class LocationController {
   @ApiOperation({ summary: 'Get information about a specific location by ID' })
   @ApiResponse({ status: 200, description: 'The requested location information', type: Location })
   @ApiResponse({ status: 404, description: 'Location not found' })
-  async getLocationById(@Param('id') id: string): Promise<Location> {
+  async getLocationById(@Param('id') id: string){
     return this.locationService.findLocationById(id);
   }
 
