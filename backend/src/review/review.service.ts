@@ -36,7 +36,7 @@ export class ReviewService {
         return {
           ...review.toObject(),
           user: {
-            displayname: userInfo.data.name,
+            displayName: userInfo.data.name,
             username: userInfo.data.email,
             avtUrl: userInfo.data.avtUrl
           }
