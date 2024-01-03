@@ -1,21 +1,44 @@
 import React from "react";
 import { i18n, LocalizationKey } from "@/Localization";
 import { View, Text, StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { Button } from "native-base";
+import { useNavigation } from '@react-navigation/native';
+import Onboarding, { DoneButtonProps } from 'react-native-onboarding-swiper';
+import { Button, Image } from "native-base";
 import { RootScreens } from "..";
 
 export const Welcome = (props: {
   onNavigate: (string: RootScreens) => void;
 }) => {
+  const navigation = useNavigation();
+  const handleDone = () =>{
+    (navigation.navigate as any)('Main');
+    navigation.reset({
+      index: 0,
+      routes: [{ name : 'Main' }],
+    });
+  }
   return (
-    <View style={styles.container}>
-      <Text>{i18n.t(LocalizationKey.WELCOME)}</Text>
-      <StatusBar style="auto" />
-      <Button onPress={() => props.onNavigate(RootScreens.MAIN)}>
-        {i18n.t(LocalizationKey.START)}
-      </Button>
-    </View>
+    <Onboarding
+    onDone={handleDone}
+    onSkip={handleDone}
+    bottomBarHighlight= {false}
+    pages={[
+        {
+          backgroundColor: '#F3FFEF',
+          image: <Image source={require('../../../assets/onboarding1.png')} alt ="" />,
+          title: 'Scan with ease',
+          subtitle: '',
+          titleStyles: styles.titles
+        },
+        {
+          backgroundColor: '#F3FFEF',
+          image: <Image source={require('../../../assets/onboarding2.png')} alt="" />,
+          title: 'Explore with excitement',
+          titleStyles: styles.titles,
+          subtitle: '',
+        },
+      ]}
+    />
   );
 };
 
@@ -25,5 +48,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  titles: {
+    fontSize: 30,
+    fontWeight: 'bold',
   },
 });

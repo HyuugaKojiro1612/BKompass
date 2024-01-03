@@ -62,19 +62,28 @@ export default function BarCodeScanScreen() {
       if (x >= viewMinX && y >= viewMinY && x <= (viewMinX + finderWidth / 2) && y <= (viewMinY + finderHeight / 2)) {
 
         setScanned(true);
-        const data_qr = (JSON.parse(data));
-        const location_id = data_qr.location_id
-        axios.get(`https://bkompass-be.onrender.com/locations/${location_id}`)
+        try {
+          const data_qr = JSON.parse(data);
+          const location_id = data_qr.location_id;
+  
+          axios.get(`https://bkompass-be.onrender.com/locations/${location_id}`)
             .then(res => {
-              alert('Check-in thành công' );
+              alert('Check-in thành công');
               (navigation.navigate as any)("LocationInfo", {
                 screen: 'LocationInfo',
-                data: res.data });
+                data: res.data
+              });
             })
             .catch(e => {
-              alert(`Ma QR khong hop le, vui long quet lai`);
+              alert(`Ma QR không hợp lệ, vui lòng quét lại`);
               console.log(e);
-            })
+            });
+        } catch (error) {
+          // Xử lý lỗi khi parse JSON
+          alert('Lỗi khi xử lý mã QR, vui lòng thử lại');
+          console.log(error);
+        }
+
       }
     }
 
