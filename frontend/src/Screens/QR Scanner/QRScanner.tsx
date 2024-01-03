@@ -64,11 +64,12 @@ export default function BarCodeScanScreen() {
         setScanned(true);
         const data_qr = (JSON.parse(data));
         const location_id = data_qr.location_id
-        axios.get(`http://bkompass.onrender.com/locations/${location_id}`)
+        axios.get(`https://bkompass-be.onrender.com/locations/${location_id}`)
             .then(res => {
               alert('Check-in thành công' );
-              console.log(res.data);
-              (navigation.navigate as any)("Home", { locationId: location_id });
+              (navigation.navigate as any)("LocationInfo", {
+                screen: 'LocationInfo',
+                data: res.data });
             })
             .catch(e => {
               alert(`Ma QR khong hop le, vui long quet lai`);
@@ -138,7 +139,11 @@ export default function BarCodeScanScreen() {
           </TouchableOpacity>
         </View>
         <BarcodeMask width={250} height={250} edgeColor="#62B1F6" showAnimatedLine />
-        {scanned && <Button title="Scan Again" onPress={() => setScanned(false)} />}
+        {scanned &&
+        <View style={styles.scanButtonContainer}>
+          <Button  title="Scan Again" onPress={() => setScanned(false)}/>
+        </View>
+        }
       </BarCodeScanner>
     </View>
   );
@@ -157,5 +162,8 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  scanButtonContainer: {
+    marginBottom: 30,
   },
 });
