@@ -49,4 +49,16 @@ export class UserController {
   ): Promise<ResponseStatus<Omit<User, 'password'>>> {
     return this.userService.updateUserProfile(dto);
   }
+
+  @Get('all')
+  @ApiOperation({ summary: 'Get all users' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns a list of all users',
+    type: [User], // Assuming your UserService.getAllUsers() returns an array of User
+  })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  getAllUsers(): Promise<User[]> {
+    return this.userService.getAllUsers();
+  }
 }

@@ -8,7 +8,15 @@ export class UpdateLocationDto {
   })
   @IsString()
   @IsOptional()
-  readonly name?: string;
+  readonly displayName: string;
+
+  @ApiProperty({
+    example: 'Đông Hòa, Dĩ An, Bình Dương',
+    description: 'The location of the entity',
+  })
+  @IsString()
+  @IsOptional()
+  readonly location: string;
 
   @ApiProperty({
     example: 'Tòa nhà H6 - Đại học Bách Khoa - ĐHQG TP.HCM gồm nhiều phòng học và phòng lab hiện đại',
@@ -16,7 +24,23 @@ export class UpdateLocationDto {
   })
   @IsString()
   @IsOptional()
-  readonly introduction?: string;
+  readonly intro: string;
+
+  @ApiProperty({
+    example: '7:00-20:30',
+    description: 'opening and closing times of the building',
+  })
+  @IsString()
+  @IsOptional()
+  readonly times: string;
+
+  @ApiProperty({
+    example: 'https://hcmut.edu.vn',
+    description: 'The website of the location',
+  })
+  @IsString()
+  @IsOptional()
+  readonly website: string;
 
   @ApiProperty({
     example: ['url1', 'url2'],
@@ -25,5 +49,5 @@ export class UpdateLocationDto {
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
-  readonly imagesUrls?: string[];
+  readonly images?: string[];
 }
