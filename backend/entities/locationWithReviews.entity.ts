@@ -6,7 +6,7 @@ export interface LocationWithReviews extends Document {
   _id: string;
   displayName: string;
   location: string;
-  images: { id: string; source: string; }[];
+  images: string[];
   times: string;
   voteAndComment: Review[];
   website: string;

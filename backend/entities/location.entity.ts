@@ -46,7 +46,7 @@ export class Location {
     description: 'opening and closing times of the building',
   })
   @Prop()
-  time: string;
+  times: string;
 
   @ApiProperty({ type: Date })
   @Prop({ type: Date, default: Date.now })
