@@ -25,7 +25,7 @@ export class Location {
     description: 'URLs of images associated with the location',
   })
   @Prop({ type: [String] })
-  imagesUrls: string[];
+  images: string[];
 
   @ApiProperty({
     example: 'Đông Hòa, Dĩ An, Bình Dương',
