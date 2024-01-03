@@ -4,7 +4,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export type UserDocument = User & Document;
 
-@Schema({ timestamps: true })
 export class User {
   @ApiProperty({
     example: 'John Doe',
@@ -19,6 +18,13 @@ export class User {
   })
   @Prop()
   email: string;
+
+  @ApiProperty({
+    example: 'image1@example.com',
+    description: 'Avatar Image Url',
+  })
+  @Prop()
+  avtUrl: string;
 
   @ApiProperty({
     example: 'password123',

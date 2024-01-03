@@ -49,4 +49,14 @@ export class UserService {
       };
     }
   }
+
+  async getAllUsers(): Promise<User[]> {
+    try {
+      const users: User[] = await this.userModel.find().lean();
+      return users;
+    } catch (err) {
+      // Handle error if necessary
+      return [];
+    }
+  }
 }

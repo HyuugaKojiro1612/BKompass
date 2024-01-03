@@ -21,6 +21,14 @@ export class UpdateUserDto {
   @IsOptional()
   @ApiPropertyOptional({
     type: String,
+    description: 'Name of the user',
+    example: 'John Lock',
+  })
+  name?: string;
+
+  @IsOptional()
+  @ApiPropertyOptional({
+    type: String,
     description: 'The gender of the user',
     enum: ['male', 'female', 'other'],
     example: 'male',
@@ -35,4 +43,12 @@ export class UpdateUserDto {
     example: '1990-01-01',
   })
   birthDay?: string;
+
+  @IsOptional()
+  @ApiPropertyOptional({
+    type: String,
+    description: 'Avatar image url',
+    example: 'example.com',
+  })
+  avtUrl?: string;
 }
